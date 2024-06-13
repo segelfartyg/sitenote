@@ -1,0 +1,22 @@
+{
+  "name": "NoteLad",
+  "version": "1.0",
+  "description": "Uses OAuth to connect to Google's People API and display contacts photos.",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "noteladlogopng.png"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtgvqKtKc0wkfps6GoweK4lZd1r3af2RjCJhTJAnpSKHxN97yAZjhELL4jHkudeaViB3LkQvlYTseL3VfIyhvQ7K5JWvQyjNYgQgI/ZYbk9hr7msPyUjdl0Il0B6/ejgBzRPynM5MhV3844L77pFBvCT6nObVuxdirdYTyDPcJFjsSSlsugvHfLbrWlNafP/jfalmnDTF154dfkKC41h4/NRoJ0lMCeRe2S4XOo+xUIgNEvn0Eiv6Q+HsE+K87sqJ6Z3x85fEx61vN9KvFM/lt/A+jz5+0iQLIvs1RqX0vFlV2HSKjPTrKhREvq2EMQHefngr8Lq0Ua40ProCchg4MQIDAQAB",
+  "oauth2":
+  {
+    "client_id": "1010731658636-aeejci8n3gctj78iqdehtti3qfqpn568.apps.googleusercontent.com",
+    "scopes":["https://www.googleapis.com/auth/userinfo.email"]
+  },
+  "permissions": [
+    "identity"
+  ]
+}
