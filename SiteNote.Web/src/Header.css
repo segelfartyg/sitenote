@@ -2,6 +2,7 @@
     background:rgb(255, 255, 255);
     width:100%;
     margin-bottom: 6rem;
+    position: fixed;
 }
 
 .headerContent {
@@ -9,11 +10,28 @@
     border-bottom: 2px black solid;
 
     display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.popMenu{
+    position: absolute;
+    margin:auto;
+    width: 100%;
+    background: rgb(211, 211, 211);
+    display: flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: 2px black solid;
 }
 
 .logoImage{
     height:55px;
     width: 55px;
+}
+
+.hamburger{
+    width:3rem;
+    margin-right: 2rem;
+    margin-left: auto;
 }
