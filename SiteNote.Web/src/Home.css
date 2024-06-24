@@ -1,0 +1,14 @@
+.flexCon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2rem;
+}
+
+.noteladHeader{
+    max-width:500px;
+}
+
+.noteladLogo {
+    max-width:500px;
+}
