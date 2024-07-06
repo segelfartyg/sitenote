@@ -3,10 +3,17 @@
     
     <title>Login Procedure</title>
     <style>
-        
+    
+    h2, h3{
+      text-align: center;
+    }
     body{
         width:200px;
-        padding:0;
+        padding:1rem;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border:solid black 2px;
+        border-top: 0px; 
         margin:auto;
         display:flex;
         flex-direction: column;
@@ -19,8 +26,6 @@
         display: inline-block;
         width: fit-content;
         margin:auto;
-        margin-top:4rem;
-        margin-bottom:4rem;
         border-radius: 10px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
@@ -31,20 +36,39 @@
         margin-top:4rem;
       }
 
+      #loginDiv{
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+      }
+
+      #loggedInDiv{
+        display:flex;
+        flex-direction: column;
+        justify-items: center;
+        gap: 1rem;
+      }
+
     </style>
   </head>
   <body>
     <img class="noteladLogo" src="noteladlogopng.png">
-    <div id="userIdDiv">userid</div>
     
-    <input type="text" id="urlField">
 
-    <div>
-      <textarea></textarea>
+
+    <div id="loggedInDiv">
+      <h3>Welcome, </h3>
+      <div id="userIdDiv"></div>
+    <input type="text" id="urlField">
+      <textarea id="contentField" placeholder="notes..."></textarea> 
+      <button id="postFindingBtn">NOTE IT!</button>
     </div>
-    
-    <button id="loginBtn">LOGIN</button>
-    <button id="getUserBtn">GET USER</button>
+
+    <div id="loginDiv">
+      <h2>SIGN IN TO NOTELAD</h2>
+      <button id="loginBtn">LOGIN</button>
+    </div>
+
     <div id="friendDiv"></div>
   </body>
   <script type="text/javascript" src="oauth.js"></script>

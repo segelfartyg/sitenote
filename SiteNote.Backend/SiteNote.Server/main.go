@@ -41,11 +41,18 @@ type Finding struct {
 	Name      string    `bson:"name"`
 	Link      string    `bson:"link"`
 	UserId    string    `bson:"userId"`
+	Content   string    `bson:"content"`
 	Created   time.Time `bson:"created"`
 }
 
 type LoginRequest struct {
 	IdToken string `json:"id_token"`
+}
+
+type UserCreateFindingRequest struct {
+	Name    string `json:"name"`
+	Link    string `json:"link"`
+	Content string `json:"content"`
 }
 
 func main() {
@@ -71,7 +78,7 @@ func main() {
 	}
 
 	if checkIfFindingExist("1").FindingId == "" {
-		createFinding("1", "First Finding In NoteLad", "https://splodo.com", "admin")
+		createFinding("1", "First Finding In NoteLad", "https://splodo.com", "admin", "Remember to check this awesome website out")
 	}
 
 	// STARTING HTTP SERVER
@@ -82,6 +89,7 @@ func main() {
 
 	router.HandleFunc("/login", login)
 	router.HandleFunc("/getUser", getUserId)
+	router.HandleFunc("/finding/create", userCreateFinding)
 
 	// STARTING SERVER WITH ROUTER + CORS CONFIG
 	http.ListenAndServe(":9000", corsMiddleware(router))
@@ -198,11 +206,11 @@ func createUser(userId string, email string) string {
 }
 
 // CREATING A FINDING IN DB
-func createFinding(findingId, name, link, userId string) {
+func createFinding(findingId, name, link, userId string, content string) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := findingCollection.InsertOne(ctx, bson.D{{Key: "findingId", Value: findingId}, {Key: "name", Value: name}, {Key: "link", Value: link}, {Key: "userId", Value: userId}, {Key: "created", Value: time.Now().UTC().UnixMilli()}})
+	res, err := findingCollection.InsertOne(ctx, bson.D{{Key: "findingId", Value: findingId}, {Key: "name", Value: name}, {Key: "link", Value: link}, {Key: "userId", Value: userId}, {Key: "content", Value: content}, {Key: "created", Value: time.Now().UTC().UnixMilli()}})
 
 	if err != nil {
 		log.Fatal(err)
@@ -238,22 +246,65 @@ func getUserId(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if err == http.ErrNoCookie {
 			w.WriteHeader(http.StatusUnauthorized)
+			return
 		}
-		//w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest)
+		return
 	}
 
 	sessionToken := c.Value
 	userSession, exists := sessions[sessionToken]
 	if !exists {
 		w.WriteHeader(http.StatusUnauthorized)
+		return
 	}
 
 	if userSession.isExpired() {
 		delete(sessions, sessionToken)
 		w.WriteHeader(http.StatusUnauthorized)
+		return
 	}
 
-	w.Write([]byte(fmt.Sprintf("USERID: %s", userSession.userId)))
+	w.Write([]byte(fmt.Sprintf(userSession.userId)))
+}
+
+func userCreateFinding(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("session_token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	sessionToken := c.Value
+	userSession, exists := sessions[sessionToken]
+	if !exists {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	if userSession.isExpired() {
+		delete(sessions, sessionToken)
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	var req UserCreateFindingRequest
+
+	e := json.NewDecoder(r.Body).Decode(&req)
+
+	if e != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
+	newFindingId := uuid.NewString()
+
+	createFinding(newFindingId, req.Name, req.Link, userSession.userId, req.Content)
+
+	w.Write([]byte(fmt.Sprintf(newFindingId)))
 }
 
 // CHECKING IF THE SESSION HAS EXPIRED

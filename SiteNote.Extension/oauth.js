@@ -24,17 +24,22 @@ button.addEventListener("click", (e) => {
     chrome.identity.launchWebAuthFlow({url: auth_url, interactive: true}, function(responseUrl) { 
         let idToken = responseUrl.substring(responseUrl.indexOf('id_token=') + 9);
         idToken = idToken.substring(0, idToken.indexOf('&'));
+        console.log("ID TOKEN RETRIEVED:")
         console.log(idToken)
         login(idToken).then((res) => {
-        
-           // console.log(res)
-            userIdDiv.innerHTML = res
+
+            if(res == "unauthorized"){
+                clientLogin(false)
+                userIdDiv.innerHTML = "Not logged in. Sign in to use NoteLad"
+            }
+            else{
+                clientLogin(true)
+                userIdDiv.innerHTML = res
+            }
+
+            
         });
     });
-})
-
-getUserBtn.addEventListener("click", (e) => {
-   getUserId()
 })
 
 async function login(idToken){
@@ -49,17 +54,38 @@ const response = await fetch(server_url + "/login", {
     credentials: "include",
     body: JSON.stringify(req), 
   });
-  return response.text(); 
+
+  if(response.status == 401){
+    return "unauthorized"
+  }
+  else{
+    return response.text(); 
+  }
+  
 }
 
-async function getUserId(){
-    const response = await fetch(server_url + "/getUser", {
-        method: "GET", 
-        cache: "no-cache", 
-        mode: "cors",
-        redirect: "follow", 
-        referrerPolicy: "no-referrer",
-        credentials: "include"
-      });
-      console.log(response.text()); 
+function clientLogin(loggedIn){
+    if(!loggedIn){
+        console.log("NOT LOGGED IN.")
+        loginDiv.style.display = "flex";
+        loggedInDiv.style.display = "none";
+    }
+    else{
+        console.log("LOGGED IN.")
+        loginDiv.style.display = "none";
+        loggedInDiv.style.display = "flex";
+    }
 }
+
+// async function getUserId(){
+//     const response = await fetch(server_url + "/getUser", {
+//         method: "GET", 
+//         cache: "no-cache", 
+//         mode: "cors",
+//         redirect: "follow", 
+//         referrerPolicy: "no-referrer",
+//         credentials: "include"
+//       });
+//       console.log("RETRIEVED USER INFO:")
+//       console.log(response.text()); 
+// }
