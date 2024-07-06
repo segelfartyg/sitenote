@@ -1,3 +1,6 @@
-// chrome.action.onClicked.addListener(function() {
-//   chrome.tabs.create({url: 'index.html'});
-// });
+console.log("SERVICE WORKER")
+
+chrome.commands.onCommand.addListener(function(command) {
+    console.log('onCommand event received for message: ', command);
+});
+

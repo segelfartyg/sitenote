@@ -1,14 +1,21 @@
 {
   "name": "NoteLad",
   "version": "1.0",
-  "description": "Uses OAuth to connect to Google's People API and display contacts photos.",
+  "description": "Extension for enabling notes for bookmarks",
   "manifest_version": 3,
+  "background": {
+    "service-worker": "service-worker.js"
+  },
   "action": {
     "default_popup": "index.html",
     "default_icon": "noteladlogopng.png"
   },
-  "background": {
-    "service_worker": "service-worker.js"
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+          "default": "Alt+N"
+      }
+  }
   },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtgvqKtKc0wkfps6GoweK4lZd1r3af2RjCJhTJAnpSKHxN97yAZjhELL4jHkudeaViB3LkQvlYTseL3VfIyhvQ7K5JWvQyjNYgQgI/ZYbk9hr7msPyUjdl0Il0B6/ejgBzRPynM5MhV3844L77pFBvCT6nObVuxdirdYTyDPcJFjsSSlsugvHfLbrWlNafP/jfalmnDTF154dfkKC41h4/NRoJ0lMCeRe2S4XOo+xUIgNEvn0Eiv6Q+HsE+K87sqJ6Z3x85fEx61vN9KvFM/lt/A+jz5+0iQLIvs1RqX0vFlV2HSKjPTrKhREvq2EMQHefngr8Lq0Ua40ProCchg4MQIDAQAB",
   "oauth2":
@@ -17,6 +24,7 @@
     "scopes":["https://www.googleapis.com/auth/userinfo.email"]
   },
   "permissions": [
-    "identity"
+    "identity",
+    "tabs"
   ]
 }

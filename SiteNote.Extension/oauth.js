@@ -18,12 +18,18 @@ auth_url += url;
 const button = document.getElementById("loginBtn")
 const getUserBtn = document.getElementById("getUserBtn")
 
+let userIdDiv = document.getElementById("userIdDiv");
+
 button.addEventListener("click", (e) => {
     chrome.identity.launchWebAuthFlow({url: auth_url, interactive: true}, function(responseUrl) { 
         let idToken = responseUrl.substring(responseUrl.indexOf('id_token=') + 9);
         idToken = idToken.substring(0, idToken.indexOf('&'));
         console.log(idToken)
-        login(idToken).then((res) => console.log(res));
+        login(idToken).then((res) => {
+        
+           // console.log(res)
+            userIdDiv.innerHTML = res
+        });
     });
 })
 

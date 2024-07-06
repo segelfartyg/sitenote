@@ -129,7 +129,8 @@ func login(w http.ResponseWriter, r *http.Request) {
 		Expires:  expiresAt,
 	})
 
-	//fmt.Fprint(w, "GOT THIS: "+req.IdToken)
+	//RETURNING USERID
+	fmt.Fprint(w, googleUserId)
 
 }
 
