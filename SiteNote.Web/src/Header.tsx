@@ -35,9 +35,9 @@ export default function Header() {
             <img className="hamburger" onClick={onMenuClickEventHandler} src={menuSource}></img>
         </div>
         <div style={{display: popMenuStyle}} className="popMenu">
-            <p>home</p>
-            <p>profile</p>
-            <p>login</p>
+            <p className='headerItem'>home</p>
+            <p className='headerItem'>profile</p>
+            <p className='headerItem'>login</p>
         </div>
     </div>
   )

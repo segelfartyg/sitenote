@@ -2,8 +2,13 @@
     display:flex;
     flex-direction: column;
     align-items: center;
-    border-top:solid black 2px;
-    margin-top:10rem;
+    border-top:solid black 1px;
+    background:white;
+    margin-top:auto;
+}
+
+.footerItem{
+    font-size: 0.75rem;
 }
 
 .segelImage{
