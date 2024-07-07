@@ -2,7 +2,7 @@ var auth_url = 'https://accounts.google.com/o/oauth2/auth?';
 
 var client_id = '1010731658636-aeejci8n3gctj78iqdehtti3qfqpn568.apps.googleusercontent.com'
 var redirect_url = chrome.identity.getRedirectURL(); 
-var server_url = 'http://127.0.0.1:9000'
+var server_url = 'http://localhost:9000'
 var auth_params = {
     client_id: client_id,
     redirect_uri: redirect_url,

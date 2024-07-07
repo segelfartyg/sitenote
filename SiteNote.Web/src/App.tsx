@@ -40,11 +40,11 @@ function App() {
         <Header/>
         <BrowserRouter>
         <Routes>
-        <Route index element={<Home />} />
+        <Route index element={<Home onLogin={login}/>} />
         <Route path="profile" element={<Profile />} />
         </Routes>
         </BrowserRouter>
-        <GoogleLogin onSuccess={credentialres => {login(credentialres)}} onError={() => console.log("LOGIN FAILED")}></GoogleLogin>
+        {/* <GoogleLogin onSuccess={credentialres => {login(credentialres)}} onError={() => console.log("LOGIN FAILED")}></GoogleLogin> */}
         <Footer />
         
       </div>

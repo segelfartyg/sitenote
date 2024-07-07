@@ -90,6 +90,7 @@ func main() {
 	router.HandleFunc("/login", login)
 	router.HandleFunc("/getUser", getUserId)
 	router.HandleFunc("/finding/create", userCreateFinding)
+	router.HandleFunc("/finding/user/all", userGetFindings)
 
 	// STARTING SERVER WITH ROUTER + CORS CONFIG
 	http.ListenAndServe(":9000", corsMiddleware(router))
@@ -311,6 +312,60 @@ func userCreateFinding(w http.ResponseWriter, r *http.Request) {
 	createFinding(newFindingId, req.Name, req.Link, userSession.userId, req.Content)
 
 	w.Write([]byte(fmt.Sprintf(newFindingId)))
+}
+
+func userGetFindings(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("session_token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	sessionToken := c.Value
+	userSession, exists := sessions[sessionToken]
+	if !exists {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	if userSession.isExpired() {
+		delete(sessions, sessionToken)
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
+	findings := GetUserFindings(userSession.userId)
+	json.NewEncoder(w).Encode(findings)
+}
+
+func GetUserFindings(userId string) []Finding {
+	var result []Finding
+
+	filter := bson.D{{Key: "userId", Value: userId}}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	cursor, err := findingCollection.Find(ctx, filter)
+
+	if err == mongo.ErrNoDocuments {
+		fmt.Println("records does not exist")
+	} else if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = cursor.All(ctx, &result); err != nil {
+		panic(err)
+	}
+
+	return result
 }
 
 // CHECKING IF THE SESSION HAS EXPIRED
