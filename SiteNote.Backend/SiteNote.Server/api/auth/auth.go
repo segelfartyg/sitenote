@@ -58,8 +58,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 // ROUTE HANDLER FOR GETTING USERID FROM USER SESSION
 func GetUserId(w http.ResponseWriter, r *http.Request) {
-	cookie := cookie.Validate(w, r)
-	sessionToken := cookie.Value
+	sessionToken, err := cookie.RetrieveSessionToken(w, r)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 	userId := session.Validate(sessionToken, w)
 	w.Write([]byte(fmt.Sprintf(userId)))
 }

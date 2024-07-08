@@ -1,0 +1,31 @@
+
+.noteladHeader{
+    max-width:300px;
+    text-align: center;
+}
+
+.flexCon h1 {
+    text-align: center;
+}
+
+.noteladLogo {
+    max-width:300px;
+    
+}
+
+
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 992px) {
+
+
+    .secondTitle{
+        font-size: 3rem;
+    }
+
+    .flexCon{
+        padding:2rem;
+        filter: none;
+        max-width:75%;
+    }
+  }

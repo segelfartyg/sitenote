@@ -23,6 +23,7 @@ func Setup() {
 	router.HandleFunc("/getUser", auth.GetUserId)
 	router.HandleFunc("/finding/create", user.UserCreateFinding)
 	router.HandleFunc("/finding/user/all", user.UserGetFindings)
+	router.HandleFunc("/finding/user/delete", user.UserDeleteFinding)
 
 	// STARTING SERVER WITH ROUTER + CORS CONFIG
 	http.ListenAndServe(consts.Port, corsMiddleware(router))

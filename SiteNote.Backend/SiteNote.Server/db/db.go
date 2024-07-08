@@ -152,3 +152,20 @@ func GetUserFindings(userId string) []Finding {
 
 	return result
 }
+
+func DeleteUserFindings(userId string, findingId string) string {
+
+	filter := bson.D{{Key: "userId", Value: userId}, {Key: "findingId", Value: findingId}}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	_, err := findingCollection.DeleteOne(ctx, filter)
+
+	if err == mongo.ErrNoDocuments {
+		fmt.Println("records does not exist")
+	} else if err != nil {
+		log.Fatal(err)
+	}
+
+	return findingId
+}

@@ -1,5 +1,5 @@
 
-import './Header.css'
+import './styles/Header.css'
 import { useState } from 'react'
 import Logo from '../public/noteladlogo.png'
 import Hamburger from '../public/hamburger.svg'

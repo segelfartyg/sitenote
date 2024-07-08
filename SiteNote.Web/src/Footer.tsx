@@ -1,4 +1,4 @@
-import './Footer.css'
+import './styles/Footer.css'
 import SegelImage from '../public/segelfartyg.png'
 export default function Footer() {
   return (

@@ -1,7 +1,8 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import noteladHeader from '../public/noteladheader.svg'
 import noteladLogo from '../public/noteladlogo.png'
-import './Home.css'
+import './styles/Home.css'
+import "./styles/common.css"
 
 interface loginProps {
   /** The text to display inside the button */
@@ -10,7 +11,7 @@ interface loginProps {
 
 export default function Home({onLogin}:loginProps) {
   return (
-    <div className='Home'>
+    <div className='Home WaveBackground'>
 
     
       <div className='flexCon'>
@@ -18,19 +19,14 @@ export default function Home({onLogin}:loginProps) {
       <p className="para">This is the NoteLad homepage. sign in to take charge of your own NoteLad universe.</p>
       </div>
 
-
       <div className="flexCon">
-      {/* <img className="noteladHeader" src={noteladHeader}></img> */}
       <img className="noteladLogo" src={noteladLogo}></img>
       </div>
 
       <div className='flexCon'>
       <GoogleLogin onSuccess={credRes => {onLogin(credRes)}} onError={() => console.log("LOGIN FAILED")}></GoogleLogin>
       </div>
-      
-      {/* <div className='flexCon'>
-      <p className="para">This is the NoteLad homepage, sign in to take charge of your own NoteLad universe.</p>
-      </div> */}
+
     </div>
   )
 }

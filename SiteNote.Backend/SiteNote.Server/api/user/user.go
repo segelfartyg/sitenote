@@ -17,10 +17,17 @@ type UserCreateFindingRequest struct {
 	Content string `json:"content"`
 }
 
+type UserDeleteFindingRequest struct {
+	FindingId string `json:"findingId"`
+}
+
 func UserCreateFinding(w http.ResponseWriter, r *http.Request) {
 
-	cookie := cookie.Validate(w, r)
-	sessionToken := cookie.Value
+	sessionToken, err := cookie.RetrieveSessionToken(w, r)
+
+	if err != nil {
+		return
+	}
 	userId := session.Validate(sessionToken, w)
 
 	var req UserCreateFindingRequest
@@ -39,10 +46,35 @@ func UserCreateFinding(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserGetFindings(w http.ResponseWriter, r *http.Request) {
-	cookie := cookie.Validate(w, r)
-	sessionToken := cookie.Value
+	sessionToken, err := cookie.RetrieveSessionToken(w, r)
+
+	if err != nil {
+		return
+	}
+
 	userId := session.Validate(sessionToken, w)
 
 	findings := db.GetUserFindings(userId)
 	json.NewEncoder(w).Encode(findings)
+}
+
+func UserDeleteFinding(w http.ResponseWriter, r *http.Request) {
+	sessionToken, err := cookie.RetrieveSessionToken(w, r)
+
+	if err != nil {
+		return
+	}
+
+	userId := session.Validate(sessionToken, w)
+
+	var req UserDeleteFindingRequest
+
+	e := json.NewDecoder(r.Body).Decode(&req)
+
+	if e != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
+	deletedUserFinding := db.DeleteUserFindings(userId, req.FindingId)
+	json.NewEncoder(w).Encode(deletedUserFinding)
 }
