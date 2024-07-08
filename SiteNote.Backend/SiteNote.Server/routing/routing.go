@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"notelad.com/server/api/auth"
 	"notelad.com/server/api/user"
-	"notelad.com/server/configuration/consts"
+	"notelad.com/server/consts"
 )
 
 func Setup() {

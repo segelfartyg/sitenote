@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"google.golang.org/api/idtoken"
-	"notelad.com/server/configuration/consts"
+	"notelad.com/server/consts"
 	"notelad.com/server/db"
 	"notelad.com/server/utils/cookie"
 	"notelad.com/server/utils/session"
