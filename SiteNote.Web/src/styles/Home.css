@@ -15,17 +15,15 @@
 
 
 
+
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
 
-
-    .secondTitle{
-        font-size: 3rem;
+    .noteladLogo {
+        max-width:200px;
+        
     }
 
-    .flexCon{
-        padding:2rem;
-        filter: none;
-        max-width:75%;
-    }
   }
+
+

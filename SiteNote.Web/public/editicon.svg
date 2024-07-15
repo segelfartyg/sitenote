@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Lager_2" data-name="Lager 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1133.5 840.96">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <g id="Lager_1-2" data-name="Lager 1">
+    <rect class="cls-1" x="402.77" y="190.21" width="749.56" height="97.37" rx="48.68" ry="48.68" transform="translate(6.14 496.92) rotate(-35.57)"/>
+    <rect class="cls-1" x="10.5" y="518.09" width="1122.5" height="97.37" rx="48.68" ry="48.68"/>
+    <rect class="cls-1" x=".5" y="743.09" width="1122.5" height="97.37" rx="48.68" ry="48.68"/>
+  </g>
+</svg>

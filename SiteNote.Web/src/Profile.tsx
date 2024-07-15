@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { NOTELAD_BASE_API } from "./consts/endpoints";
 import "./styles/Profile.css"
 import "./styles/common.css"
+import NoteLogoDefault from '../public/singlen.svg'
+import EditLogo from '../public/editicon.svg'
+import ExitLogo from '../public/cross.svg'
+
 
 
 
@@ -113,14 +117,14 @@ export default function Profile() {
       <h1>Notes</h1>
       </div>   
       {findings.map(f => {
-        return <div className="flexCon" key={f.FindingId}>
-        <div className="findingPara"><p>NAME: {f.Name}</p><br></br> <p>CONTENT: {f.Content}</p><br></br> <p>WEBPAGE: {f.Link}</p><br></br> <p>USER: {f.UserId}</p><br></br></div><br />
-        <button>TAKE ME THERE!</button>
-        <div className="findingOptions">
-        <button onClick={e => deleteUserFinding(f.FindingId)}>REMOVE</button>
-        <input placeholder="new url..."></input>
-        <button>CHANGE URL</button>
-        </div>
+        return <div className="flexCon noteCon" key={f.FindingId}>
+        <img className="noteLogo" src={NoteLogoDefault}></img>
+        {/* <div className="findingPara"><p>NAME: {f.Name}</p><br></br> <p>CONTENT: {f.Content}</p><br></br> <p>WEBPAGE: {f.Link}</p><br></br> <p>USER: {f.UserId}</p><br></br></div><br /> */}
+        <p>{f.Name}</p>
+        <img className="editLogo" src={EditLogo}></img>
+        <img className="exitLogo" onClick={e => deleteUserFinding(f.FindingId)} src={ExitLogo}></img>
+        
+
         </div>
       })}
       </div>

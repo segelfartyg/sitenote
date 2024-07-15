@@ -1,3 +1,4 @@
+let titleInputField = window.document.getElementById("titleField");
 let urlInputField = window.document.getElementById("urlField");
 let loginDiv = window.document.getElementById("loginDiv");
 let loggedInDiv = window.document.getElementById("loggedInDiv");
@@ -60,6 +61,7 @@ async function getLastUsedUrl(){
   const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
   console.log("LAST USED URL:")
   console.log(tab.url);
+  titleInputField.value = tab.title;
   urlInputField.value = tab.url;
 }
 
@@ -67,7 +69,7 @@ async function createFinding(){
   
 
   let reqBody = {
-    name: urlInputField.value,
+    name: titleInputField.value,
     link: urlInputField.value,
     content: contentInputField.value
   }
