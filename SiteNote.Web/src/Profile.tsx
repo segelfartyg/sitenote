@@ -114,10 +114,10 @@ export default function Profile() {
   return (
     <div className="Profile WaveBackground">
       <div className="flexCon">
-      <h1>Notes</h1>
+      <h1 className="profileHeader">Notes</h1>
       </div>   
       {findings.map(f => {
-        return <div className="flexCon noteCon" key={f.FindingId}>
+        return <div className="flexCon noteCon" key={f.FindingId} onClick={() => {navigate("/finding/" + f.FindingId)}}>
         <img className="noteLogo" src={NoteLogoDefault}></img>
         {/* <div className="findingPara"><p>NAME: {f.Name}</p><br></br> <p>CONTENT: {f.Content}</p><br></br> <p>WEBPAGE: {f.Link}</p><br></br> <p>USER: {f.UserId}</p><br></br></div><br /> */}
         <p>{f.Name}</p>

@@ -22,6 +22,7 @@ func Setup() {
 	router.HandleFunc("/login", auth.Login)
 	router.HandleFunc("/getUser", auth.GetUserId)
 	router.HandleFunc("/finding/create", user.UserCreateFinding)
+	router.HandleFunc("/finding/user", user.UserGetFinding)
 	router.HandleFunc("/finding/user/all", user.UserGetFindings)
 	router.HandleFunc("/finding/user/delete", user.UserDeleteFinding)
 

@@ -7,6 +7,7 @@ import Profile from './Profile'
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { NOTELAD_BASE_API } from './consts/endpoints'
+import Finding from './Finding'
 
 
 
@@ -46,6 +47,7 @@ function App() {
         <Routes>
         <Route index element={<Home onLogin={login}/>} />
         <Route path="profile" element={<Profile />} />
+        <Route path="finding/:findingId" element={<Finding />} />
         </Routes>
         <Footer />
         

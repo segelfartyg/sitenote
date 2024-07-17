@@ -17,6 +17,10 @@ type UserCreateFindingRequest struct {
 	Content string `json:"content"`
 }
 
+type UserGetFindingRequest struct {
+	FindingId string `json:"findingId"`
+}
+
 type UserDeleteFindingRequest struct {
 	FindingId string `json:"findingId"`
 }
@@ -56,6 +60,27 @@ func UserGetFindings(w http.ResponseWriter, r *http.Request) {
 
 	findings := db.GetUserFindings(userId)
 	json.NewEncoder(w).Encode(findings)
+}
+
+func UserGetFinding(w http.ResponseWriter, r *http.Request) {
+	sessionToken, err := cookie.RetrieveSessionToken(w, r)
+
+	if err != nil {
+		return
+	}
+
+	var req UserGetFindingRequest
+
+	e := json.NewDecoder(r.Body).Decode(&req)
+
+	if e != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
+	userId := session.Validate(sessionToken, w)
+
+	finding := db.GetUserFinding(userId, req.FindingId)
+	json.NewEncoder(w).Encode(finding)
 }
 
 func UserDeleteFinding(w http.ResponseWriter, r *http.Request) {

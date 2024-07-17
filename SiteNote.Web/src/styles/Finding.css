@@ -1,0 +1,53 @@
+.findingPara{
+    margin: auto;
+    height: auto;
+    max-width: 750px;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    padding:1rem;
+
+ }
+
+ .specificFindingCon{
+
+ }
+
+ .findingImage {
+    width:300px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+ }
+
+ .removeFindingImage{
+    width:2rem;
+    position: absolute;
+    right:1rem;
+    top:1rem;
+ }
+
+.popupOverlay{
+    position:absolute;
+    height:100%;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+/* 
+    display:none; */
+}
+
+ .popupMenu{
+    width:200px;
+    border: solid black 5px;
+    border-radius: 10px;
+    position: absolute;
+    margin: auto;
+    padding:1rem;
+    display:flex;
+    flex-direction: column;
+    background: white;
+    gap:1rem;
+    height:fit-content;
+ }

@@ -153,6 +153,22 @@ func GetUserFindings(userId string) []Finding {
 	return result
 }
 
+func GetUserFinding(userId string, findingId string) Finding {
+	var result Finding
+
+	filter := bson.D{{Key: "userId", Value: userId}, {Key: "findingId", Value: findingId}}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	err := findingCollection.FindOne(ctx, filter).Decode(&result)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return result
+}
+
 func DeleteUserFindings(userId string, findingId string) string {
 
 	filter := bson.D{{Key: "userId", Value: userId}, {Key: "findingId", Value: findingId}}

@@ -1,15 +1,12 @@
-.findingPara{
 
-   margin: auto;
-   height: auto;
-   max-width: 750px;
-   word-wrap: break-word;
-   display: flex;
-   flex-direction: column;
-}
 
 .noteLogo{
    width:100px;
+}
+
+.profileHeader{
+   padding-left:1rem;
+   padding-right:1rem;
 }
 
 .noteCon{
@@ -24,7 +21,11 @@
 
 
 .exitLogo{
-   width:4rem;
+   width:2rem;
+   position: absolute;
+   right:1rem;
+   top:1rem;
+
 }
 
 /* On screens that are 992px or less, set the background color to blue */
