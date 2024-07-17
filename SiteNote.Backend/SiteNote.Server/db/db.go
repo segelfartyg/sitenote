@@ -29,6 +29,7 @@ type Finding struct {
 	Link      string    `bson:"link"`
 	UserId    string    `bson:"userId"`
 	Content   string    `bson:"content"`
+	Domain    string    `bson:"domain"`
 	Created   time.Time `bson:"created"`
 }
 
@@ -55,7 +56,7 @@ func Setup() {
 	}
 
 	if CheckIfFindingExist("1").FindingId == "" {
-		CreateFinding("1", "First Finding In NoteLad", "https://splodo.com", "admin", "Remember to check this awesome website out")
+		CreateFinding("1", "First Finding In NoteLad", "https://splodo.com", "admin", "Remember to check this awesome website out", "splodo.com")
 	}
 
 }
@@ -117,11 +118,11 @@ func CheckIfFindingExist(findingId string) Finding {
 }
 
 // CREATING A FINDING IN DB
-func CreateFinding(findingId, name, link, userId string, content string) {
+func CreateFinding(findingId, name, link, userId string, content string, domain string) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := findingCollection.InsertOne(ctx, bson.D{{Key: "findingId", Value: findingId}, {Key: "name", Value: name}, {Key: "link", Value: link}, {Key: "userId", Value: userId}, {Key: "content", Value: content}, {Key: "created", Value: time.Now().UTC().UnixMilli()}})
+	res, err := findingCollection.InsertOne(ctx, bson.D{{Key: "findingId", Value: findingId}, {Key: "name", Value: name}, {Key: "link", Value: link}, {Key: "domain", Value: domain}, {Key: "userId", Value: userId}, {Key: "content", Value: content}, {Key: "created", Value: time.Now().UTC().UnixMilli()}})
 
 	if err != nil {
 		log.Fatal(err)
@@ -135,6 +136,29 @@ func GetUserFindings(userId string) []Finding {
 	var result []Finding
 
 	filter := bson.D{{Key: "userId", Value: userId}}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	cursor, err := findingCollection.Find(ctx, filter)
+
+	if err == mongo.ErrNoDocuments {
+		fmt.Println("records does not exist")
+	} else if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = cursor.All(ctx, &result); err != nil {
+		panic(err)
+	}
+
+	return result
+}
+
+func GetUserFindingsFromDomain(userId string, domain string) []Finding {
+	var result []Finding
+	fmt.Println(userId)
+	fmt.Println(domain)
+	filter := bson.D{{Key: "userId", Value: userId}, {Key: "domain", Value: domain}}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()

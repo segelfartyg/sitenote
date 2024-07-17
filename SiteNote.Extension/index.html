@@ -52,11 +52,14 @@
     </style>
   </head>
   <body>
-    <img class="noteladLogo" src="noteladlogopng.png">
+    
     
 
 
     <div id="loggedInDiv">
+   
+      <div id="newFindingDiv">
+        <img class="noteladLogo" src="noteladlogopng.png">
       <h3>Welcome, </h3>
       <div id="userIdDiv"></div>
       <input type="text" id="titleField">
@@ -64,6 +67,12 @@
       <textarea id="contentField" placeholder="notes..."></textarea> 
       <button id="postFindingBtn">NOTE IT!</button>
     </div>
+
+    <div style="display:none" id="findingsDiv">
+        <p>YOU HAVE FINDINGS</p>
+        <div id="placeholder"></div>
+    </div>
+  </div>
 
     <div id="loginDiv">
       <h2>SIGN IN TO NOTELAD</h2>

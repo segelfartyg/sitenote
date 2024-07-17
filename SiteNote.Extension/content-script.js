@@ -2,12 +2,10 @@ let titleInputField = window.document.getElementById("titleField");
 let urlInputField = window.document.getElementById("urlField");
 let loginDiv = window.document.getElementById("loginDiv");
 let loggedInDiv = window.document.getElementById("loggedInDiv");
+let newFindingDiv = window.document.getElementById("newFindingDiv");
+let findingsDiv = window.document.getElementById("findingsDiv");
 let postFindingBtn = window.document.getElementById("postFindingBtn");
 let contentInputField = window.document.getElementById("contentField");
-
-
-
-
 
 (async () => {
 
@@ -23,6 +21,7 @@ let contentInputField = window.document.getElementById("contentField");
   else{
     clientLogin(true)
     userIdDiv.innerHTML = userInfo;
+    await getDomainFindings();
   }
 
   getLastUsedUrl();
@@ -51,6 +50,64 @@ async function getAuthorizedUserInfo(){
   
 }
 
+async function getDomainFindings(){
+
+  const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+
+
+  let url = new URL(tab.url);
+  let domain = url.hostname;
+
+  let reqBody = {
+    domain: domain
+  }
+
+  const response = await fetch(server_url + "/finding/user/domain/all", {
+    method: "POST", 
+    cache: "no-cache", 
+    body: JSON.stringify(reqBody),
+    mode: "cors",
+    redirect: "follow", 
+    referrerPolicy: "no-referrer",
+    credentials: "include"
+  });
+
+  let jsonRes = await response.json()
+
+  if(jsonRes != null){
+    console.log(jsonRes)
+    populateFindingDiv(jsonRes)
+  }
+  else{
+    console.log("NO FINDINGS ON DOMAIn")
+  }
+
+
+
+
+}
+
+async function populateFindingDiv(findingList){
+  const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+  currentUrl = tab.url
+
+  let currentPageFinding = findingList.find(finding => finding.Link === tab.url)
+  console.log("CURRENT PAGE FINDING")
+  console.log(currentPageFinding)
+
+  newFindingDiv.style = "display:none"
+  findingsDiv.style = "display:block"
+
+  findingsDiv.innerHTML = `
+  <div>
+    <h1>${currentPageFinding.Name}</h1>
+    <p>${currentPageFinding.Content}</p>
+  </div>`
+
+
+}
+
+
 async function cookieExists(){
   var cookieJar = await chrome.cookies.getAllCookieStores();
   console.log(cookieJar); // 'static' memory between function calls
@@ -67,12 +124,17 @@ async function getLastUsedUrl(){
 
 async function createFinding(){
   
+  
+  let url = new URL(urlInputField.value);
+  let domain = url.hostname;
 
   let reqBody = {
     name: titleInputField.value,
     link: urlInputField.value,
-    content: contentInputField.value
+    content: contentInputField.value,
+    domain: domain
   }
+
 
   const response = await fetch(server_url + "/finding/create", {
     method: "POST", 

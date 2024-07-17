@@ -24,6 +24,7 @@ func Setup() {
 	router.HandleFunc("/finding/create", user.UserCreateFinding)
 	router.HandleFunc("/finding/user", user.UserGetFinding)
 	router.HandleFunc("/finding/user/all", user.UserGetFindings)
+	router.HandleFunc("/finding/user/domain/all", user.UserGetFindingsFromDomain)
 	router.HandleFunc("/finding/user/delete", user.UserDeleteFinding)
 
 	// STARTING SERVER WITH ROUTER + CORS CONFIG

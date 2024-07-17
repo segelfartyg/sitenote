@@ -15,6 +15,7 @@ type UserCreateFindingRequest struct {
 	Name    string `json:"name"`
 	Link    string `json:"link"`
 	Content string `json:"content"`
+	Domain  string `json:"domain"`
 }
 
 type UserGetFindingRequest struct {
@@ -23,6 +24,10 @@ type UserGetFindingRequest struct {
 
 type UserDeleteFindingRequest struct {
 	FindingId string `json:"findingId"`
+}
+
+type UserGetFindingsFromDomainRequest struct {
+	Domain string `json:"domain"`
 }
 
 func UserCreateFinding(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +49,7 @@ func UserCreateFinding(w http.ResponseWriter, r *http.Request) {
 
 	newFindingId := uuid.NewString()
 
-	db.CreateFinding(newFindingId, req.Name, req.Link, userId, req.Content)
+	db.CreateFinding(newFindingId, req.Name, req.Link, userId, req.Content, req.Domain)
 
 	w.Write([]byte(fmt.Sprintf(newFindingId)))
 }
@@ -59,6 +64,27 @@ func UserGetFindings(w http.ResponseWriter, r *http.Request) {
 	userId := session.Validate(sessionToken, w)
 
 	findings := db.GetUserFindings(userId)
+	json.NewEncoder(w).Encode(findings)
+}
+
+func UserGetFindingsFromDomain(w http.ResponseWriter, r *http.Request) {
+	sessionToken, err := cookie.RetrieveSessionToken(w, r)
+
+	if err != nil {
+		return
+	}
+
+	userId := session.Validate(sessionToken, w)
+
+	var req UserGetFindingsFromDomainRequest
+
+	e := json.NewDecoder(r.Body).Decode(&req)
+
+	if e != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
+	findings := db.GetUserFindingsFromDomain(userId, req.Domain)
 	json.NewEncoder(w).Encode(findings)
 }
 
