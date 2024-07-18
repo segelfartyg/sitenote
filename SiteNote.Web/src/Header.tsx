@@ -9,18 +9,21 @@ import { useNavigate } from 'react-router-dom'
 export default function Header() {
 
     const [menuSource, setMenuSource] = useState(Hamburger);
-    const [popMenuStyle, setPopMenuStyle] = useState("none");
+    const [popMenuStyle, setPopMenuStyle] = useState({
+        display: "none",
+        animation: "none"
+    });
     const navigate = useNavigate()
     function onMenuClickEventHandler(){
 
         if(menuSource == Hamburger){
             setMenuSource(Exit)
-            setPopMenuStyle("flex")
+            setPopMenuStyle({...popMenuStyle, display: "flex", animation: "forwards menuAnimation 0.25s"})
             
         }
         else{
             setMenuSource(Hamburger)
-            setPopMenuStyle("none")
+            setPopMenuStyle({...popMenuStyle, animation: "forwards menuAnimationBack 0.5s"})
         }
         
     }
@@ -40,7 +43,7 @@ export default function Header() {
             <p>login</p> */}
             <img className="hamburger" onClick={onMenuClickEventHandler} src={menuSource}></img>
         </div>
-        <div style={{display: popMenuStyle}} className="popMenu">
+        <div style={popMenuStyle} className="popMenu">
             <p className='headerItem' onClick={() => navigatorFunction("/")}>home</p>
             <p className='headerItem' onClick={() => navigatorFunction("/profile")}>profile</p>
             <p className='headerItem' onClick={() => navigatorFunction("/login")}>login</p>

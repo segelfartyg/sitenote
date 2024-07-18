@@ -17,19 +17,51 @@
    flex-direction: row;
    padding: 2rem;
    gap: 1rem;
+   max-width: 500px;
 }
 
 .editLogo{
-   width:4rem;
+   width:2rem;
+   height:2rem;
+   position: absolute;
+   right:1rem;
+   top:4rem;
+   padding:0.5rem;
 }
+
+.editLogo:hover{
+   background: rgb(0, 255, 64);
+   border-radius: 10px;
+   animation: 0.1s onHoverLogo forwards;
+   
+}
+
+
 
 
 .exitLogo{
    width:2rem;
+   height:2rem;
    position: absolute;
    right:1rem;
    top:1rem;
+   padding:0.5rem;
 
+}
+
+.exitLogo:hover{
+   background: rgb(255, 0, 0);
+   border-radius: 10px;
+   animation: 0.1s onHoverLogo forwards;
+}
+
+@keyframes onHoverLogo{
+   0%{
+
+   }
+   100%{
+      transform: scale(1.1, 1.1);
+   }
 }
 
 /* On screens that are 992px or less, set the background color to blue */
