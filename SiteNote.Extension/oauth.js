@@ -64,7 +64,7 @@ const response = await fetch(server_url + "/login", {
   
 }
 
-function clientLogin(loggedIn){
+async function clientLogin(loggedIn){
     if(!loggedIn){
         console.log("NOT LOGGED IN.")
         loginDiv.style.display = "flex";
@@ -74,18 +74,6 @@ function clientLogin(loggedIn){
         console.log("LOGGED IN.")
         loginDiv.style.display = "none";
         loggedInDiv.style.display = "flex";
+        await setup()
     }
 }
-
-// async function getUserId(){
-//     const response = await fetch(server_url + "/getUser", {
-//         method: "GET", 
-//         cache: "no-cache", 
-//         mode: "cors",
-//         redirect: "follow", 
-//         referrerPolicy: "no-referrer",
-//         credentials: "include"
-//       });
-//       console.log("RETRIEVED USER INFO:")
-//       console.log(response.text()); 
-// }

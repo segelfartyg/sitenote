@@ -7,7 +7,13 @@ let findingsDiv = window.document.getElementById("findingsDiv");
 let postFindingBtn = window.document.getElementById("postFindingBtn");
 let contentInputField = window.document.getElementById("contentField");
 
+// INITIALIZING THE EXTENSION
 (async () => {
+
+  console.log("STARTING EXTENSION...")
+
+  titleInputField.readOnly = true;
+  urlInputField.readOnly = true;
 
   postFindingBtn.addEventListener("click", async (e) => {
     await createFinding()
@@ -22,11 +28,40 @@ let contentInputField = window.document.getElementById("contentField");
     clientLogin(true)
     userIdDiv.innerHTML = userInfo;
     await getDomainFindings();
+    selectTextField()
   }
 
   getLastUsedUrl();
 
 })();
+
+
+
+
+async function setup(){
+
+  let userInfo = await getAuthorizedUserInfo()
+
+  if(userInfo == "unauthorized"){
+    clientLogin(false)
+  }
+  else{
+    userIdDiv.innerHTML = userInfo;
+    selectTextField()
+  }
+
+}
+
+
+function selectTextField() {
+
+  const input = document.getElementById("contentField");
+  
+  console.log("FOCUSING...")
+  
+  input.focus();
+  input.select();
+}
 
 async function getAuthorizedUserInfo(){
   const response = await fetch(server_url + "/getUser", {
@@ -37,6 +72,7 @@ async function getAuthorizedUserInfo(){
     referrerPolicy: "no-referrer",
     credentials: "include"
   });
+
   console.log("RETRIEVED USER INFO:")
 
   let resRaw = await response.text();
@@ -54,7 +90,7 @@ async function getDomainFindings(){
 
   const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
 
-
+  console.log(tab)
   let url = new URL(tab.url);
   let domain = url.hostname;
 
@@ -81,9 +117,6 @@ async function getDomainFindings(){
   else{
     console.log("NO FINDINGS ON DOMAIn")
   }
-
-
-
 
 }
 

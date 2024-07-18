@@ -36,10 +36,28 @@
         margin-top:4rem;
       }
 
+      .inputField{
+        border: solid black 1px;
+        padding:0.5rem;
+        border-radius: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      #userIdDiv{
+        text-align: center;
+      }
+
+      #newFindingDiv{
+        display:flex;
+        flex-direction: column;
+        gap:1rem;
+      }
+
       #loginDiv{
         display: flex;
         flex-direction: column;
         justify-items: center;
+        justify-content: center;
       }
 
       #loggedInDiv{
@@ -60,11 +78,10 @@
    
       <div id="newFindingDiv">
         <img class="noteladLogo" src="noteladlogopng.png">
-      <h3>Welcome, </h3>
       <div id="userIdDiv"></div>
-      <input type="text" id="titleField">
-    <input type="text" id="urlField">
-      <textarea id="contentField" placeholder="notes..."></textarea> 
+      <input class="inputField" type="text" id="titleField">
+      <input class="inputField" type="text" id="urlField">
+      <textarea class="inputField fieldBig" id="contentField" placeholder="Thoughts about this webpage..."></textarea> 
       <button id="postFindingBtn">NOTE IT!</button>
     </div>
 
@@ -75,6 +92,7 @@
   </div>
 
     <div id="loginDiv">
+      <img class="noteladLogo" src="noteladlogopng.png">
       <h2>SIGN IN TO NOTELAD</h2>
       <button id="loginBtn">LOGIN</button>
     </div>
