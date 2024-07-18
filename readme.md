@@ -1,12 +1,14 @@
-# SiteNote - the best way to keep notes on the web
-SiteNote is a collection of applications whose purpose is to make it easier to keep notes on the WWW. 
-The core of this repo is NoteLad, which is a web platform and a chrome extension, that works together to do precisely this: **help you keep track of things that you find on the internet.**
+# SiteNote - keeping notes on the web
+SiteNote is a collection of applications whose purpose is to make it easier to keep notes on the internet. 
 
-## How it works
-You download the extension, sign in with google, then start navigating the web to find something to take notes about :) 
+## Vision
+The main goal of sitenote is to make it possible to easily open a chrome extension and take some notes. Afterwards, it should be easy to navigate to a website to organize the findings.
 
 ## Contact
-Please reach out if you find aspects of the application that you would like to give feedback about. 
+Please reach out if you find aspects of the application that you would like to give feedback about. I want to make this as great as possible and all feedback is welcome :) 
+
+## Technologies 
+For backend Go is used, and frontend (the web app) is made in React TypeScript. The extension is made in vanilla JS. 
 
 
 
