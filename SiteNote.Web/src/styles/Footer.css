@@ -5,6 +5,7 @@
     border-top:solid black 5px;
     background:white;
     margin-top: auto;
+    height:fit-content;
 }
 
 .footerItem{
