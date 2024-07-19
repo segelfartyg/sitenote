@@ -14,10 +14,11 @@
    height:3rem;
    position: absolute;
    right:1rem;
-   top:7rem;
+   top:9rem;
    padding:0rem;
    margin:0;
    transition: 0.25s;
+   border:solid black 2px;
 }
 
 .profileHeader{
@@ -30,7 +31,7 @@
    padding: 2rem;
    gap: 1rem;
    max-width: 500px;
-   min-height: 120px;
+   min-height: 150px;
    position: relative;
 }
 
@@ -43,9 +44,10 @@
    height:2rem;
    position: absolute;
    right:1rem;
-   top:4rem;
+   top:5rem;
    padding:0.5rem;
    transition: 0.25s;
+   border:solid black 2px;
 }
 
 .editLogo:hover{
@@ -73,6 +75,7 @@
    top:1rem;
    padding:0.5rem;
    transition: 0.25s;
+   border: solid black 2px;
 }
 
 .exitLogo:hover{

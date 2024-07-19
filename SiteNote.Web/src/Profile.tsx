@@ -122,8 +122,8 @@ export default function Profile() {
         return <div className="flexCon noteCon" key={f.FindingId}>
         <img className="noteLogo" src={NoteLogoDefault}></img>
         <p className="nameFindingPara">{f.Name}</p>
-        <img className="editLogo" src={EditLogo} onClick={() => {navigate("/finding/" + f.FindingId)}}></img>
-        <img className="exitLogo" onClick={e => deleteUserFinding(f.FindingId)} src={ExitLogo}></img>
+        <a href={"/finding/" + f.FindingId}><img className="editLogo" src={EditLogo} onClick={() => {navigate("/finding/" + f.FindingId)}}></img></a>
+        <a href={"/profile"}><img className="exitLogo" onClick={e => deleteUserFinding(f.FindingId)} src={ExitLogo}></img></a>
         <a href={f.Link}><img className="linkLogo" src={LinkIcon} /></a>
         </div>
       })}
