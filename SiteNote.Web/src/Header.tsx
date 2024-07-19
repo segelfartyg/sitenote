@@ -18,12 +18,12 @@ export default function Header() {
 
         if(menuSource == Hamburger){
             setMenuSource(Exit)
-            setPopMenuStyle({...popMenuStyle, display: "flex", animation: "forwards menuAnimation 0.25s"})
+            setPopMenuStyle({...popMenuStyle, display: "flex", animation: "forwards menuAnimation 0.05s"})
             
         }
         else{
             setMenuSource(Hamburger)
-            setPopMenuStyle({...popMenuStyle, animation: "forwards menuAnimationBack 0.5s"})
+            setPopMenuStyle({...popMenuStyle, animation: "forwards menuAnimationBack 0.15s"})
         }
         
     }
@@ -31,12 +31,14 @@ export default function Header() {
 
     function navigatorFunction(path: string){
         setMenuSource(Hamburger)
-            setPopMenuStyle({...popMenuStyle, animation: "forwards menuAnimationBack 0.5s"})
+            setPopMenuStyle({...popMenuStyle, animation: "forwards menuAnimationBack 0.15s"})
         navigate(path)
     }
 
 
   return (
+    <div className='Header'>
+        
     <div className="header">
         <div className="headerContent"> 
             <img className="logoImage" src={Logo}></img>
@@ -45,11 +47,14 @@ export default function Header() {
             <p>login</p> */}
             <img className="hamburger" onClick={onMenuClickEventHandler} src={menuSource}></img>
         </div>
-        <div style={popMenuStyle} className="popMenu">
-            <p className='headerItem' onClick={() => navigatorFunction("/")}>home</p>
-            <p className='headerItem' onClick={() => navigatorFunction("/profile")}>profile</p>
-            <p className='headerItem' onClick={() => navigatorFunction("/login")}>login</p>
-        </div>
+        
     </div>
+    <div style={popMenuStyle} className="popMenu">
+    <p className='headerItem' onClick={() => navigatorFunction("/")}>home</p>
+    <p className='headerItem' onClick={() => navigatorFunction("/profile")}>profile</p>
+    <p className='headerItem' onClick={() => navigatorFunction("/login")}>login</p>
+</div>
+
+</div>
   )
 }

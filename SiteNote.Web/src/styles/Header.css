@@ -1,14 +1,15 @@
 .header {
     background:#ffffff;
     width:100%;
-    position: block;
-    z-index: 3;
+    position:relative;
+    z-index: 2;
     border-bottom:solid black 5px;
+
 }
 
 .headerItem{
     font-size: 0.75rem;
-    z-index: 3;
+
 }
 
 .headerContent {
@@ -29,8 +30,8 @@
     flex-direction: column;
     align-items: center;
     border-bottom: 5px black solid;
-    z-index: -1;
-    animation: forwards menuAnimation 0.25s
+    z-index: 1;
+    animation: forwards menuAnimation 0.15s
 }
 
 .logoImage{
@@ -46,11 +47,11 @@
 
 @keyframes menuAnimation {
     0%{
-        transform: translateY(-100%);
+        transform: translateY(-200px);
     }
     100%{
         transform: translateY(0px);
-        opacity: 1;
+   
     }
     
 }
@@ -60,7 +61,7 @@
         transform: translateY(0px);
     }
     50%{
-        opacity: 0;
+
     }
     100%{
         transform: translateY(-200%);

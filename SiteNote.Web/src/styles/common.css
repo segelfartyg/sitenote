@@ -28,7 +28,7 @@
 .WaveBackground{
     width: 100%;
     min-height: 400px;
-    background: linear-gradient(-45deg, #ffffff, rgb(192, 192, 192) , #ffffff);
+    background: linear-gradient(-45deg, #008cff, rgb(0, 146, 243) , #0074d3);
     background-size: 400% 400%;
     -webkit-animation: gradient-example-3 8s ease infinite;
             animation: gradient-example-3 8s ease infinite;
