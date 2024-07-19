@@ -2,7 +2,9 @@ body, html{
   padding:0;
   margin:0;
   height:100%;
-  font-family: "rig-shaded-bold-face", sans-serif;
+  font-family: "itc-avant-garde-gothic-pro", sans-serif;
+font-weight: 300;
+font-style: normal;
   font-weight: 700;
   font-style: normal;
 }

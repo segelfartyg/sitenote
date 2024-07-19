@@ -6,6 +6,8 @@ import "./styles/common.css"
 import NoteLogoDefault from '../public/singlen.svg'
 import EditLogo from '../public/editicon.svg'
 import ExitLogo from '../public/cross.svg'
+import LinkIcon from '../public/link.svg'
+
 
 
 
@@ -114,19 +116,18 @@ export default function Profile() {
   return (
     <div className="Profile WaveBackground">
       <div className="flexCon">
-      <h1 className="profileHeader">Notes</h1>
+      <h1 className="profileHeader">Your findings</h1>
       </div>   
       {findings.map(f => {
-        return <div className="flexCon noteCon" key={f.FindingId} onClick={() => {navigate("/finding/" + f.FindingId)}}>
+        return <div className="flexCon noteCon" key={f.FindingId}>
         <img className="noteLogo" src={NoteLogoDefault}></img>
-        {/* <div className="findingPara"><p>NAME: {f.Name}</p><br></br> <p>CONTENT: {f.Content}</p><br></br> <p>WEBPAGE: {f.Link}</p><br></br> <p>USER: {f.UserId}</p><br></br></div><br /> */}
-        <p>{f.Name}</p>
-        <img className="editLogo" src={EditLogo}></img>
+        <p className="nameFindingPara">{f.Name}</p>
+        <img className="editLogo" src={EditLogo} onClick={() => {navigate("/finding/" + f.FindingId)}}></img>
         <img className="exitLogo" onClick={e => deleteUserFinding(f.FindingId)} src={ExitLogo}></img>
-        
-
+        <a href={f.Link}><img className="linkLogo" src={LinkIcon} /></a>
         </div>
       })}
+
       </div>
   )
 }

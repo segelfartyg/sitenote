@@ -2,10 +2,21 @@
 
 .Profile{
    height:100%;
+   position: relative;
 }
 
 .noteLogo{
    width:100px;
+}
+
+.linkLogo{
+   width:3rem;
+   height:3rem;
+   position: absolute;
+   right:1rem;
+   top:7rem;
+   padding:0rem;
+   margin:0;
 }
 
 .profileHeader{
@@ -18,6 +29,12 @@
    padding: 2rem;
    gap: 1rem;
    max-width: 500px;
+   min-height: 120px;
+   position: relative;
+}
+
+.nameFindingPara{
+   margin-right:4rem;
 }
 
 .editLogo{
@@ -31,6 +48,13 @@
 
 .editLogo:hover{
    background: rgb(0, 255, 64);
+   border-radius: 10px;
+   animation: 0.1s onHoverLogo forwards;
+   
+}
+
+.linkLogo:hover{
+   background: rgb(0, 120, 218);
    border-radius: 10px;
    animation: 0.1s onHoverLogo forwards;
    

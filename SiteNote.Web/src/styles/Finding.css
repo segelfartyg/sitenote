@@ -3,32 +3,83 @@
 }
 
 .findingPara{
-    margin: auto;
     height: auto;
     max-width: 750px;
     word-wrap: break-word;
     display: flex;
     flex-direction: column;
-    padding:1rem;
+    font-weight: 200;
+    text-align: left;
+    width:100%;
+    height: fit-content;
+    margin-top:1rem;
 
+ }
+
+
+
+ .breakArea{
+   height:5px;
+   border-radius: 5px;
+   width: 100%;
+   background: black;
+   margin-top: 2rem;
+ }
+
+ .findingHeader{
+   max-width: 750px;
+   word-wrap: break-word;
+   height: fit-content;
+   width:100%;
+   margin:0;
+   text-align: left;
+   font-size: 2rem;
+   margin-bottom: 1rem;
+ }
+
+ .findingPropArea{
+   width: 100%;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   padding:1rem;
+   max-width: 750px;
  }
 
  .specificFindingCon{
-
+   padding-right: 4rem;
+   padding-left:2rem;
+   padding-top:2rem;
+   position: relative;
  }
 
  .findingImage {
-    width:300px;
+    width:50px;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    place-self: center;
+    padding:0.5rem;
  }
+
+ .findingImage:hover{
+   background: rgb(0, 153, 46);
+   border-radius: 10px;
+   animation: 0.1s onHoverLogo forwards;
+}
 
  .removeFindingImage{
     width:2rem;
     position: absolute;
+    padding:0.5rem;
     right:1rem;
     top:1rem;
+    z-index: 4;
  }
+
+ .removeFindingImage:hover{
+   background: rgb(255, 0, 0);
+   border-radius: 10px;
+   animation: 0.1s onHoverLogo forwards;
+}
 
 .popupOverlay{
     position:absolute;
@@ -38,9 +89,14 @@
     align-items: center;
     justify-content: center;
     background: rgb(255, 255, 255);
-/* 
-    display:none; */
+    top: 0rem;
+    left:0rem;
+    border-radius: 5px;
 }
+
+
+
+
 
  .popupMenu{
     width:200px;

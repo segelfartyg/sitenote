@@ -2,9 +2,10 @@ import './styles/Finding.css'
 import NoteLogoDefault from '../public/singlen.svg'
 import ExitLogo from '../public/cross.svg'
 import { useEffect, useState } from 'react'
-import { useParams} from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 import { NOTELAD_BASE_API } from './consts/endpoints';
-
+import EditLogo from '../public/editicon.svg'
+import ShareIcon from "../public/share.svg"
 
 export default function Finding() {
 
@@ -18,6 +19,8 @@ export default function Finding() {
       }
 
     const { findingId } = useParams()
+
+    const navigate = useNavigate()
 
     const [overlayStyling, setOverlayStyling] = useState(
         {display: "none"}
@@ -38,18 +41,44 @@ export default function Finding() {
         }
     }
 
-    const onSuccessClickHandler = () => {
+    const onSuccessClickHandler = async () => {
+
+        await deleteFinding()
         setOverlayStyling(
             {display: "none"}
         )
     }
 
-    const onDeniedClickHandler = () => {
+    const onDeniedClickHandler =  () => {
         setOverlayStyling(
             {display: "none"}
         )
     }
 
+
+    async function deleteFinding(){
+        let body = {
+            findingId: findingId
+          }
+      
+          const response = await fetch(NOTELAD_BASE_API + "/finding/user/delete", {
+            method: "POST", 
+            cache: "no-cache", 
+            mode: "cors",
+            body: JSON.stringify(body),
+            redirect: "follow", 
+            referrerPolicy: "no-referrer",
+            credentials: "include"
+          });
+        
+          if(response.status == 401){
+            navigate("/")
+          }
+          if(response.status == 200){
+            navigate("/profile")
+          }
+          
+    }
   
 
     useEffect(() => {
@@ -89,9 +118,18 @@ export default function Finding() {
   return (
     <div className="Finding WaveBackground">
         <div className="flexCon specificFindingCon">
-            <h2>{currentChosenFinding?.Name}</h2>
+            <h2 className='findingHeader'>{currentChosenFinding?.Name}</h2>
             <p className='findingPara'>{currentChosenFinding?.Content}</p>
+            <a href={currentChosenFinding?.Link} className='findingPara'>{currentChosenFinding?.Link}</a>
+
+
+            <div className='breakArea'></div>
+            <div className="findingPropArea">
             <img className="findingImage" src={NoteLogoDefault}></img>
+            <img className="findingImage" src={ShareIcon}></img>
+            <img className="findingImage" src={EditLogo}></img>
+            </div>
+            
             <img onClick={onRemoveClickHandler} className="removeFindingImage" src={ExitLogo}></img> 
 
 

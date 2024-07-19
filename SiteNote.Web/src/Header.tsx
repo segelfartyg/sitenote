@@ -30,6 +30,8 @@ export default function Header() {
 
 
     function navigatorFunction(path: string){
+        setMenuSource(Hamburger)
+            setPopMenuStyle({...popMenuStyle, animation: "forwards menuAnimationBack 0.5s"})
         navigate(path)
     }
 
