@@ -58,6 +58,7 @@
     margin-bottom: 1rem;
     place-self: center;
     padding:0.5rem;
+    transition: 0.25s;
  }
 
  .findingImage:hover{

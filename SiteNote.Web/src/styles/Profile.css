@@ -17,6 +17,7 @@
    top:7rem;
    padding:0rem;
    margin:0;
+   transition: 0.25s;
 }
 
 .profileHeader{
@@ -44,6 +45,7 @@
    right:1rem;
    top:4rem;
    padding:0.5rem;
+   transition: 0.25s;
 }
 
 .editLogo:hover{
@@ -70,7 +72,7 @@
    right:1rem;
    top:1rem;
    padding:0.5rem;
-
+   transition: 0.25s;
 }
 
 .exitLogo:hover{
