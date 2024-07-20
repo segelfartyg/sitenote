@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "FullSemVer (env.fullSemVer)            : ${{ env.fullSemVer }}"
           version=${{ env.fullSemVer }}
-          version_refined="${version//+/beta-}"
+          version_refined="${version//+/-beta-}"
           echo $version
           echo "FINALVERSION=$(echo $version_refined)" >> $GITHUB_ENV
         name: Display GitVersion variables (without prefix)
