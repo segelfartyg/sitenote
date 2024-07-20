@@ -32,7 +32,7 @@ jobs:
           version=${{ env.fullSemVer }}
           version_refined="${version//+/C}"
           echo $version
-          echo $version_refined
+          echo "FINALVERSION="=$FINALVERSION
         name: Display GitVersion variables (without prefix)
 
       -
@@ -51,7 +51,7 @@ jobs:
           context: ./SiteNote.Backend/SiteNote.Server/
           file: ./SiteNote.Backend/SiteNote.Server/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:sitenote.server${{ env.fullSemVer }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:sitenote.server${{ env.FINALVERSION }}
       # -
       #    name: DO Deployment
       #    uses: appleboy/ssh-action@v0.1.2
