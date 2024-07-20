@@ -8,7 +8,7 @@ on:
       - SiteNote.Backend/SiteNote.Server/**
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
       -
