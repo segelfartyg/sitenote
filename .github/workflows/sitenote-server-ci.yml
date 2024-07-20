@@ -3,7 +3,7 @@ name: sitenote-server-ci
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - SiteNote.Backend/SiteNote.Server/**
 
