@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "FullSemVer (env.fullSemVer)            : ${{ env.fullSemVer }}"
           version=${{ env.fullSemVer }}
-          version_refined="${version//+/C}"
+          version_refined="${version//+/beta-}"
           echo $version
           echo "FINALVERSION=$(echo $version_refined)" >> $GITHUB_ENV
         name: Display GitVersion variables (without prefix)
@@ -51,7 +51,7 @@ jobs:
           context: ./SiteNote.Backend/SiteNote.Server/
           file: ./SiteNote.Backend/SiteNote.Server/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:sitenote.server${{ env.FINALVERSION }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:server-${{ env.FINALVERSION }}
       # -
       #    name: DO Deployment
       #    uses: appleboy/ssh-action@v0.1.2
