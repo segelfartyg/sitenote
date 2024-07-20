@@ -32,7 +32,7 @@ jobs:
           version=${{ env.fullSemVer }}
           version_refined="${version//+/C}"
           echo $version
-          echo "FINALVERSION="=$FINALVERSION
+          echo "FINALVERSION=$(echo $version_refined)" >> $GITHUB_ENV
         name: Display GitVersion variables (without prefix)
 
       -
