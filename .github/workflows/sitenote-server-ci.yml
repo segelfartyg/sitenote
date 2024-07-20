@@ -1,4 +1,4 @@
-name: splodo-map-ci
+name: sitenote-server-ci
 
 on:
   push:
