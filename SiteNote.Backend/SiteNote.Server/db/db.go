@@ -40,7 +40,7 @@ func Setup() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	DB, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	DB, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://SiteNoteMongoDB:27017"))
 
 	// SETTING UP DB COLLECTIONS
 	userCollection = DB.Database("notelad").Collection("users")
@@ -74,6 +74,7 @@ func CheckIfUserExist(userId string) User {
 	if err == mongo.ErrNoDocuments {
 		// Do something when no record was found
 		fmt.Println("record does not exist")
+		result.UserId = ""
 	} else if err != nil {
 		log.Fatal(err)
 	}
@@ -110,6 +111,7 @@ func CheckIfFindingExist(findingId string) Finding {
 	if err == mongo.ErrNoDocuments {
 		// Do something when no record was found
 		fmt.Println("record does not exist")
+		result.FindingId = ""
 	} else if err != nil {
 		log.Fatal(err)
 	}

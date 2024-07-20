@@ -1,16 +1,15 @@
-FROM golang:1.21
+FROM golang:1.21-alpine
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY . ./
 
 RUN go mod download && go mod verify 
 
-COPY *.go ./
 
 EXPOSE 9000
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /notelad-service
+RUN CGO_ENABLED=0 GOOS=linux go build -o /sitenote-service
 
 
-CMD ["/notelad-service"]
+CMD ["/sitenote-service"]
