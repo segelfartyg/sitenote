@@ -47,7 +47,7 @@ jobs:
           context: ./SiteNote.Backend/SiteNote.Server/
           file: ./SiteNote.Backend/SiteNote.Server/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:sitenote.server
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:sitenote.server{{ env.fullSemVer }}
       # -
       #    name: DO Deployment
       #    uses: appleboy/ssh-action@v0.1.2
