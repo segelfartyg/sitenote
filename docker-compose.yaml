@@ -11,7 +11,7 @@ services:
     networks:
       - sitenote-network
   SiteNoteServer:
-    image: segelfartyg/sitenote.server
+    image: segelfartyg/sitenote:server-0.1.0-beta-53
     restart: always
     ports:
      - "9000:9000"
@@ -20,6 +20,17 @@ services:
         condition: service_started
     networks:
       - sitenote-network
+  SiteNoteFrontend:
+    image: segelfartyg/sitenote:frontend-0.1.0-beta-52
+    restart: always
+    ports:
+     - "5173:5173"
+    depends_on:
+      SiteNoteMongoDB:
+        condition: service_started
+    networks:
+      - sitenote-network
+  
 networks:
   sitenote-network:
     driver: bridge
