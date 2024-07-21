@@ -5,13 +5,13 @@ services:
     image: mongo:latest
     restart: always
     ports:
-      - "27018:27018"
+      - "27017:27017"
     volumes:
       - SiteNoteMongoDB:/data/db
     networks:
       - sitenote-network
   SiteNoteServer:
-    image: segelfartyg/sitenote:server-0.1.0-beta-53
+    image: segelfartyg/sitenote:server-0.1.0-beta-54
     restart: always
     ports:
      - "9000:9000"

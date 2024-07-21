@@ -40,7 +40,7 @@ func Setup() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	DB, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://SiteNoteMongoDB:27018"))
+	DB, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://SiteNoteMongoDB:27017"))
 
 	// SETTING UP DB COLLECTIONS
 	userCollection = DB.Database("notelad").Collection("users")
