@@ -3,15 +3,16 @@ version: "3"
 services:
   SiteNoteMongoDB:
     image: mongo:latest
+    command: mongod --port 27018
     restart: always
     ports:
-      - "27018:27017"
+      - "27018:27018"
     volumes:
       - SiteNoteMongoDB:/data/db
     networks:
       - sitenote-network
   SiteNoteServer:
-    image: segelfartyg/sitenote:server-0.1.0-beta-55
+    image: segelfartyg/sitenote:server-0.1.0-beta-56
     restart: always
     ports:
      - "9000:9000"
