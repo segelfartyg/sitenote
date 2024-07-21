@@ -5,7 +5,7 @@ import (
 	"notelad.com/server/routing"
 )
 
-// SETTING UP WEB API.
+// SETTING UP WEB API
 func main() {
 	db.Setup()
 	routing.Setup()
