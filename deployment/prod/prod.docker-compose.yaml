@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  SiteNoteMongoDB:
+    image: mongo:latest
+    command: mongod --port 27019
+    restart: always
+    ports:
+      - "27019:27019"
+    volumes:
+      - SiteNoteMongoDB:/data/db
+    networks:
+      - sitenote-network
+  SiteNoteServer:
+    image: segelfartyg/sitenote:server-0.1.0-beta-56
+    restart: always
+    ports:
+     - "9001:9001"
+    depends_on:
+      SiteNoteMongoDB:
+        condition: service_started
+    networks:
+      - sitenote-network
+  SiteNoteFrontend:
+    image: segelfartyg/sitenote:frontend-0.1.0-beta-52
+    restart: always
+    ports:
+     - "5174:5174"
+    depends_on:
+      SiteNoteMongoDB:
+        condition: service_started
+    networks:
+      - sitenote-network
+  
+networks:
+  sitenote-network:
+    driver: bridge
+volumes:
+  SiteNoteMongoDB: {}
