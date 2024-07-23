@@ -12,7 +12,7 @@ services:
     networks:
       - sitenote-network
   SiteNoteServer:
-    image: segelfartyg/sitenote:server-0.1.0-beta-56
+    image: segelfartyg/sitenote:server:latest
     restart: always
     ports:
      - "9000:9000"
@@ -22,7 +22,7 @@ services:
     networks:
       - sitenote-network
   SiteNoteFrontend:
-    image: segelfartyg/sitenote:frontend-0.1.0-beta-52
+    image: segelfartyg/sitenote:frontend:latest
     restart: always
     ports:
      - "5173:5173"
