@@ -38,7 +38,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 		log.Println("Executing middleware", r.Method)
 
 		switch origin := r.Header.Get("Origin"); origin {
-		case "chrome-extension://cpediolkjjaolfdjmgkhaaglfgfgejld", "http://localhost:5173":
+		case "chrome-extension://cpediolkjjaolfdjmgkhaaglfgfgejld", "http://localhost:5173", "https://dev.notelad.com":
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 		}
 
