@@ -27,7 +27,7 @@ func deploy(c *gin.Context) {
 }
 
 func composeDown() {
-
+	fmt.Println("COMPOSING DOWN")
 	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "down")
 	commandOutput, err := cmd.Output()
 	if err != nil {
@@ -40,6 +40,8 @@ func composeDown() {
 }
 
 func removeImages() {
+
+	fmt.Println("REMOVING IMAGES")
 	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "rm", "-f")
 	commandOutput, err := cmd.Output()
 	if err != nil {
@@ -52,7 +54,8 @@ func removeImages() {
 }
 
 func getLatestImages() {
-	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "pull", "-f")
+	fmt.Println("GETTING LATEST IMAGES")
+	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "pull")
 	commandOutput, err := cmd.Output()
 	if err != nil {
 		fmt.Println(err)
@@ -63,6 +66,7 @@ func getLatestImages() {
 }
 
 func composeUp() {
+	fmt.Println("COMPOSING UP")
 	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "up", "-d")
 	commandOutput, err := cmd.Output()
 
