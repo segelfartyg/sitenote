@@ -51,8 +51,8 @@ jobs:
           context: ./SiteNote.Web.Proxy
           file: ./SiteNote.Web.Proxy/Dockerfile
           push: true
-          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:frontend-${{ env.FINALVERSION }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote:frontend:latest
+          #tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote-frontend-${{ env.FINALVERSION }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sitenote-frontend:latest
       # -
       #   name: DO Deployment
       #   uses: appleboy/ssh-action@v0.1.2
