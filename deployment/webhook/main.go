@@ -39,7 +39,7 @@ func deploy(c *gin.Context) {
 
 	githubReq := githubWebhookRequest{}
 
-	c.ShouldBind(&githubReq)
+	c.BindJSON(&githubReq)
 
 	fmt.Println(githubReq.workFlow.name)
 
