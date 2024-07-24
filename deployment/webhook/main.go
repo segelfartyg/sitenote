@@ -83,12 +83,13 @@ func deploy(c *gin.Context) {
 	}
 
 	if githubReq.WorkFlow.Name == PROD_FRONTEND_WORKFLOW_NAME || githubReq.WorkFlow.Name == PROD_SERVER_WORKFLOW_NAME && githubReq.Action == "completed" {
-		deployProdEnvironment(PROD_COMPOSE_FILE)
+		go deployProdEnvironment(PROD_COMPOSE_FILE)
+		c.String(http.StatusOK, "success")
 	} else if githubReq.Action == "completed" {
-		deployDevEnvironment(DEV_COMPOSE_FILE)
+		go deployDevEnvironment(DEV_COMPOSE_FILE)
+		c.String(http.StatusOK, "success")
 	}
-
-	c.String(http.StatusOK, "success")
+	c.String(http.StatusOK, "could not start deployment")
 }
 
 func deployProdEnvironment(composeFile string) {
