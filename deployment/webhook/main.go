@@ -29,7 +29,7 @@ type workflow struct {
 
 func main() {
 	r := gin.Default()
-	r.GET("/webhook", deploy)
+	r.POST("/webhook", deploy)
 	r.Run("localhost:9050")
 }
 
