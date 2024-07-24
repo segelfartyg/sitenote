@@ -11,6 +11,22 @@ import (
 const DEV_COMPOSE_FILE string = "../dev/dev.docker-compose.yaml"
 const PROD_COMPOSE_FILE string = "../prod/dev.docker-compose.yaml"
 
+type githubWebhookRequest struct {
+}
+
+type workflow struct {
+	badge_url  string `json:"badge_url"`
+	created_at string `json:"created_at"`
+	html_url   string `json:"html_url"`
+	id         string `json:"id"`
+	name       string `json:"name"`
+	node_id    string `json:"node_id"`
+	path       string `json:"path"`
+	state      string `json:"state"`
+	updated_at string `json:updated_at`
+	url        string `json:url`
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/webhook", deploy)
@@ -18,6 +34,12 @@ func main() {
 }
 
 func deploy(c *gin.Context) {
+
+	githubReq := githubWebhookRequest{}
+
+	c.ShouldBind(&githubReq)
+
+	fmt.Println(githubReq)
 
 	env := DEV_COMPOSE_FILE
 
