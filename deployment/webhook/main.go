@@ -41,7 +41,7 @@ func deploy(c *gin.Context) {
 
 	c.ShouldBind(&githubReq)
 
-	fmt.Println(githubReq)
+	fmt.Println(githubReq.workFlow.name)
 
 	// env := DEV_COMPOSE_FILE
 
