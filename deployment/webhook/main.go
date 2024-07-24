@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
@@ -63,6 +64,7 @@ func deploy(c *gin.Context) {
 	fmt.Println(header)
 
 	b, err := ioutil.ReadAll(c.Request.Body)
+	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
 
 	if err != nil {
 		c.String(http.StatusBadRequest, "no body")
