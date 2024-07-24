@@ -41,13 +41,13 @@ func deploy(c *gin.Context) {
 
 	fmt.Println(githubReq)
 
-	env := DEV_COMPOSE_FILE
+	// env := DEV_COMPOSE_FILE
 
-	if env == PROD_COMPOSE_FILE {
-		deployProdEnvironment(PROD_COMPOSE_FILE)
-	} else {
-		deployDevEnvironment(DEV_COMPOSE_FILE)
-	}
+	// if env == PROD_COMPOSE_FILE {
+	// 	deployProdEnvironment(PROD_COMPOSE_FILE)
+	// } else {
+	// 	deployDevEnvironment(DEV_COMPOSE_FILE)
+	// }
 
 	res := "deployment succeeded"
 
