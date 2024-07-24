@@ -1,8 +1,12 @@
 package main
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"net/http"
+	"os"
 	"os/exec"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +19,8 @@ const DEV_FRONTEND_WORKFLOW_NAME string = "sitenote-frontend-ci"
 const PROD_COMPOSE_FILE string = "../prod/dev.docker-compose.yaml"
 const PROD_SERVER_WORKFLOW_NAME string = "sitenote-server-ci-prod"
 const PROD_FRONTEND_WORKFLOW_NAME string = "sitenote-frontend-ci-prod"
+
+var secret string = "hej"
 
 type githubWebhookRequest struct {
 	Action   string   `json:"action"`
@@ -35,12 +41,39 @@ type Workflow struct {
 }
 
 func main() {
+
+	fmt.Println("SECRET:", os.Getenv("SECRET"))
+	secret = os.Getenv("SECRET")
 	r := gin.Default()
 	r.POST("/webhook", deploy)
 	r.Run("localhost:9050")
 }
 
 func deploy(c *gin.Context) {
+
+	header := c.Request.Header
+	signature := header.Get("X-Hub-Signature-256")
+
+	if signature == "" {
+		http.Error(c.Writer, "missing signature", http.StatusUnauthorized)
+		return
+	}
+
+	fmt.Println(header)
+
+	body, err := c.GetRawData()
+
+	if err != nil {
+		c.String(http.StatusBadRequest, "no body")
+	}
+
+	expectedMAC := ComputeHMAC(body, []byte(secret))
+	receivedMAC := signature[7:]
+
+	if !hmac.Equal([]byte(expectedMAC), []byte(receivedMAC)) {
+		c.String(http.StatusUnauthorized, "not valid sig")
+		return
+	}
 
 	githubReq := githubWebhookRequest{}
 
@@ -119,4 +152,10 @@ func composeUp(composeFile string) {
 	}
 	successMessage := string(commandOutput)
 	fmt.Println(successMessage)
+}
+
+func ComputeHMAC(message, secret []byte) string {
+	mac := hmac.New(sha256.New, secret)
+	mac.Write(message)
+	return hex.EncodeToString(mac.Sum(nil))
 }
