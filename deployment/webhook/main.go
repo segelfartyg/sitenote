@@ -9,24 +9,29 @@ import (
 )
 
 const DEV_COMPOSE_FILE string = "../dev/dev.docker-compose.yaml"
+const DEV_SERVER_WORKFLOW_NAME string = "sitenote-server-ci"
+const DEV_FRONTEND_WORKFLOW_NAME string = "sitenote-frontend-ci"
+
 const PROD_COMPOSE_FILE string = "../prod/dev.docker-compose.yaml"
+const PROD_SERVER_WORKFLOW_NAME string = "sitenote-server-ci-prod"
+const PROD_FRONTEND_WORKFLOW_NAME string = "sitenote-frontend-ci-prod"
 
 type githubWebhookRequest struct {
-	action   string   `json:"action"`
-	workFlow workflow `json:"workflow"`
+	Action   string   `json:"action"`
+	WorkFlow Workflow `json:"workflow"`
 }
 
-type workflow struct {
-	badge_url  string `json:"badge_url"`
-	created_at string `json:"created_at"`
-	html_url   string `json:"html_url"`
-	id         string `json:"id"`
-	name       string `json:"name"`
-	node_id    string `json:"node_id"`
-	path       string `json:"path"`
-	state      string `json:"state"`
-	updated_at string `json:updated_at`
-	url        string `json:url`
+type Workflow struct {
+	Badge_url  string `json:"badge_url"`
+	Created_at string `json:"created_at"`
+	Html_url   string `json:"html_url"`
+	Id         string `json:"id"`
+	Name       string `json:"name"`
+	Node_id    string `json:"node_id"`
+	Path       string `json:"path"`
+	State      string `json:"state"`
+	Updated_at string `json:updated_at`
+	Url        string `json:url`
 }
 
 func main() {
@@ -41,21 +46,13 @@ func deploy(c *gin.Context) {
 
 	c.BindJSON(&githubReq)
 
-	fmt.Println(githubReq)
+	if githubReq.WorkFlow.Name == PROD_FRONTEND_WORKFLOW_NAME || githubReq.WorkFlow.Name == PROD_SERVER_WORKFLOW_NAME && githubReq.Action == "completed" {
+		deployProdEnvironment(PROD_COMPOSE_FILE)
+	} else if githubReq.Action == "completed" {
+		deployDevEnvironment(DEV_COMPOSE_FILE)
+	}
 
-	fmt.Println(githubReq.action)
-
-	// env := DEV_COMPOSE_FILE
-
-	// if env == PROD_COMPOSE_FILE {
-	// 	deployProdEnvironment(PROD_COMPOSE_FILE)
-	// } else {
-	// 	deployDevEnvironment(DEV_COMPOSE_FILE)
-	// }
-
-	res := "deployment succeeded"
-
-	c.String(http.StatusOK, res)
+	c.String(http.StatusOK, "success")
 }
 
 func deployProdEnvironment(composeFile string) {
