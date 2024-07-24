@@ -22,7 +22,7 @@ const PROD_COMPOSE_FILE string = "../prod/dev.docker-compose.yaml"
 const PROD_SERVER_WORKFLOW_NAME string = "sitenote-server-ci-prod"
 const PROD_FRONTEND_WORKFLOW_NAME string = "sitenote-frontend-ci-prod"
 
-var secret string = "hej"
+var secret string = ""
 
 type githubWebhookRequest struct {
 	Action   string   `json:"action"`
