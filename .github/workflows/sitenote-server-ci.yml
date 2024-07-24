@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - SiteNote.Backend/SiteNote.Server/**
+  workflow_dispatch:
 
 jobs:
   Build:

@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - SiteNote.Web.Proxy/**
+  workflow_dispatch:
 
 jobs:
   Build:

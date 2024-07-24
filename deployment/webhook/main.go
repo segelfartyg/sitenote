@@ -8,6 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const DEV_COMPOSE_FILE string = "../dev/dev.docker-compose.yaml"
+const PROD_COMPOSE_FILE string = "../prod/dev.docker-compose.yaml"
+
 func main() {
 	r := gin.Default()
 	r.GET("/webhook", deploy)
@@ -16,19 +19,36 @@ func main() {
 
 func deploy(c *gin.Context) {
 
-	composeDown()
-	removeImages()
-	getLatestImages()
-	composeUp()
+	env := DEV_COMPOSE_FILE
+
+	if env == PROD_COMPOSE_FILE {
+		deployProdEnvironment(PROD_COMPOSE_FILE)
+	} else {
+		deployDevEnvironment(DEV_COMPOSE_FILE)
+	}
 
 	res := "deployment succeeded"
 
 	c.String(http.StatusOK, res)
 }
 
-func composeDown() {
+func deployProdEnvironment(composeFile string) {
+	composeDown(composeFile)
+	removeImages(composeFile)
+	getLatestImages(composeFile)
+	composeUp(composeFile)
+}
+
+func deployDevEnvironment(composeFile string) {
+	composeDown(composeFile)
+	removeImages(composeFile)
+	getLatestImages(composeFile)
+	composeUp(composeFile)
+}
+
+func composeDown(composeFile string) {
 	fmt.Println("COMPOSING DOWN")
-	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "down")
+	cmd := exec.Command("docker", "compose", "-f", composeFile, "down")
 	commandOutput, err := cmd.Output()
 	if err != nil {
 		fmt.Println(err)
@@ -39,10 +59,10 @@ func composeDown() {
 
 }
 
-func removeImages() {
+func removeImages(composeFile string) {
 
 	fmt.Println("REMOVING IMAGES")
-	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "rm", "-f")
+	cmd := exec.Command("docker", "compose", "-f", composeFile, "rm", "-f")
 	commandOutput, err := cmd.Output()
 	if err != nil {
 		fmt.Println(err)
@@ -53,9 +73,9 @@ func removeImages() {
 
 }
 
-func getLatestImages() {
+func getLatestImages(composeFile string) {
 	fmt.Println("GETTING LATEST IMAGES")
-	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "pull")
+	cmd := exec.Command("docker", "compose", "-f", composeFile, "pull")
 	commandOutput, err := cmd.Output()
 	if err != nil {
 		fmt.Println(err)
@@ -65,9 +85,9 @@ func getLatestImages() {
 	fmt.Println(successMessage)
 }
 
-func composeUp() {
+func composeUp(composeFile string) {
 	fmt.Println("COMPOSING UP")
-	cmd := exec.Command("docker", "compose", "-f", "../dev/dev.docker-compose.yaml", "up", "-d")
+	cmd := exec.Command("docker", "compose", "-f", composeFile, "up", "-d")
 	commandOutput, err := cmd.Output()
 
 	if err != nil {
