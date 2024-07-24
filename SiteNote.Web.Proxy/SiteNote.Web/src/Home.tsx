@@ -16,7 +16,7 @@ export default function Home({onLogin}:loginProps) {
     
       <div className='flexCon'>
       <h2 className='secondTitle'>NOTELAD</h2>
-      <p className="para">This is the NoteLad homepage. sign in to take charge of your own NoteLad universe.</p>
+      <p className="para">This is the NoteLad homepage. Sign in to take charge of your own NoteLad universe.</p>
       </div>
 
       <div className="flexCon">
