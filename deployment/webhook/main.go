@@ -70,6 +70,9 @@ func deploy(c *gin.Context) {
 	expectedMAC := ComputeHMAC(body, []byte(secret))
 	receivedMAC := signature[7:]
 
+	fmt.Println(expectedMAC)
+	fmt.Println(receivedMAC)
+
 	if !hmac.Equal([]byte(expectedMAC), []byte(receivedMAC)) {
 		c.String(http.StatusUnauthorized, "not valid sig")
 		return
