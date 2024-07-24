@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -61,13 +62,13 @@ func deploy(c *gin.Context) {
 
 	fmt.Println(header)
 
-	body, err := c.GetRawData()
+	b, err := ioutil.ReadAll(c.Request.Body)
 
 	if err != nil {
 		c.String(http.StatusBadRequest, "no body")
 	}
 
-	expectedMAC := ComputeHMAC(body, []byte(secret))
+	expectedMAC := ComputeHMAC(b, []byte(secret))
 	receivedMAC := signature[7:]
 
 	fmt.Println(expectedMAC)
