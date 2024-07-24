@@ -83,6 +83,8 @@ func deploy(c *gin.Context) {
 
 	c.BindJSON(&githubReq)
 
+	fmt.Println(githubReq)
+
 	if githubReq.WorkFlow.Name == PROD_FRONTEND_WORKFLOW_NAME || githubReq.WorkFlow.Name == PROD_SERVER_WORKFLOW_NAME && githubReq.Action == "completed" {
 		deployProdEnvironment(PROD_COMPOSE_FILE)
 	} else if githubReq.Action == "completed" {
