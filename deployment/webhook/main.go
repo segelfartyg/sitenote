@@ -41,7 +41,9 @@ func deploy(c *gin.Context) {
 
 	c.BindJSON(&githubReq)
 
-	fmt.Println(githubReq.workFlow.name)
+	fmt.Println(githubReq)
+
+	fmt.Println(githubReq.action)
 
 	// env := DEV_COMPOSE_FILE
 
