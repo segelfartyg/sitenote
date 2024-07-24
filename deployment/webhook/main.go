@@ -33,7 +33,7 @@ type Workflow struct {
 	Badge_url  string `json:"badge_url"`
 	Created_at string `json:"created_at"`
 	Html_url   string `json:"html_url"`
-	Id         string `json:"id"`
+	Id         int    `json:"id"`
 	Name       string `json:"name"`
 	Node_id    string `json:"node_id"`
 	Path       string `json:"path"`
