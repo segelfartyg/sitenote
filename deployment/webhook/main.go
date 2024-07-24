@@ -43,8 +43,6 @@ type Workflow struct {
 }
 
 func main() {
-
-	fmt.Println("SECRET:", os.Getenv("SECRET"))
 	secret = os.Getenv("SECRET")
 	r := gin.Default()
 	r.POST("/webhook", deploy)
@@ -61,8 +59,6 @@ func deploy(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(header)
-
 	b, err := ioutil.ReadAll(c.Request.Body)
 	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
 
@@ -73,9 +69,6 @@ func deploy(c *gin.Context) {
 	expectedMAC := ComputeHMAC(b, []byte(secret))
 	receivedMAC := signature[7:]
 
-	fmt.Println(expectedMAC)
-	fmt.Println(receivedMAC)
-
 	if !hmac.Equal([]byte(expectedMAC), []byte(receivedMAC)) {
 		c.String(http.StatusUnauthorized, "not valid sig")
 		return
@@ -83,9 +76,11 @@ func deploy(c *gin.Context) {
 
 	githubReq := githubWebhookRequest{}
 
-	c.BindJSON(&githubReq)
+	e := c.BindJSON(&githubReq)
 
-	fmt.Println(githubReq)
+	if e != nil {
+		fmt.Println(e)
+	}
 
 	if githubReq.WorkFlow.Name == PROD_FRONTEND_WORKFLOW_NAME || githubReq.WorkFlow.Name == PROD_SERVER_WORKFLOW_NAME && githubReq.Action == "completed" {
 		deployProdEnvironment(PROD_COMPOSE_FILE)
