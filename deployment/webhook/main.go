@@ -12,6 +12,8 @@ const DEV_COMPOSE_FILE string = "../dev/dev.docker-compose.yaml"
 const PROD_COMPOSE_FILE string = "../prod/dev.docker-compose.yaml"
 
 type githubWebhookRequest struct {
+	action   string   `json:"action"`
+	workFlow workflow `json:"workflow"`
 }
 
 type workflow struct {
