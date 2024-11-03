@@ -1,0 +1,66 @@
+
+.PostIt{
+    border: solid black 2px;
+    border-radius: 5px;
+    height:200px;
+    width:200px;
+    background: var(--color);
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.postItContent{
+    height:100%;
+    width:100%;
+    display:flex;
+}
+
+.postItHeader{
+    height:50px;
+    border-bottom: 2px solid black;
+    background: var(--color);
+    z-index: 6;
+    position: relative;
+}
+
+.overlay {
+    position:absolute;
+    height:100%;
+    width: 100%;
+    background: linear-gradient(160deg,rgba(255, 255, 255, 0) 0%, rgba(156, 156, 156, 0.116) 50%, rgba(0, 0, 0, 0.486) 100%);
+    top:0;
+    z-index: 5;
+}
+
+textarea{
+    z-index: 4;
+    background:none;
+    width: 90%;
+    padding:0;
+    border:none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height:90%;
+    top:0;
+    margin:auto;
+}
+
+textarea:focus{
+    border: none;
+    outline:none;
+}
+
+.draggable {
+    user-select: none;
+    cursor: move;
+    position: absolute;
+}
+
+.colorPicker{
+    z-index: 6;
+}
+
+.colorPickerArea{
+    position: absolute;
+    left: -225px;
+}
